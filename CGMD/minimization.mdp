@@ -17,4 +17,3 @@ epsilon_rf               = 0
 vdw_type                 = cutoff  
 vdw-modifier             = Potential-shift-verlet
 rvdw                     = 1.1
-
