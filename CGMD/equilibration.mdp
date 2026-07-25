@@ -1,12 +1,14 @@
 integrator               = md
 dt                       = 0.02 
-nsteps                   = 25000
+nsteps                   = 25000         ; 500 ps equilibration run
 nstxout                  = 0 
 nstvout                  = 0
 nstfout                  = 0
 nstlog                   = 1000 
 nstxout-compressed       = 1000
-compressed-x-precision   = 100
+
+; FIX 1: Boost precision from 100 to 10000 to keep your coordinate paths perfectly clean
+compressed-x-precision   = 10000
 
 cutoff-scheme            = Verlet
 nstlist                  = 20
@@ -16,20 +18,25 @@ verlet-buffer-tolerance  = 0.005
 
 coulombtype              = reaction-field 
 rcoulomb                 = 1.1
-epsilon_r                = 15    ; 2.5 (with polarizable water)
+epsilon_r                = 15    
 epsilon_rf               = 0
 vdw_type                 = cutoff  
 vdw-modifier             = Potential-shift-verlet
 rvdw                     = 1.1
 
 tcoupl                   = v-rescale 
-tc-grps                  = system
-tau-t                    = 1.0
-ref-t                    = 300
+; FIX 2: Separate the temperature coupling groups right from the start of equilibration
+tc-grps                  = Protein_XXX W_ION
+tau-t                    = 1.0 1.0
+ref-t                    = 300 300
+
+; Velocity generation (Crucial for starting from a raw, non-equilibrated structure)
 gen-vel                  = yes
 gen-temp                 = 300
+
 Pcoupl                   = berendsen 
-Pcoupltype               = semiisotropic
+; FIX 3: Changed to isotropic box scaling with single-value parameters
+Pcoupltype               = isotropic
 tau-p                    = 4.0
-compressibility          = 4.5e-5 4.5e-5 
-ref-p                    = 1.0 1.0
+compressibility          = 4.5e-5
+ref-p                    = 1.0
