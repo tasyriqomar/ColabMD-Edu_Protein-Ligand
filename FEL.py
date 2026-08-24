@@ -55,4 +55,4 @@ def plot_fel(filename, title, xlabel='PC2', ylabel='PC1', zlabel='G (kJ/mol)'):
 
 if __name__ == "__main__":
     # Generate plot for FEL.dat
-    plot_fel('FEL.dat', 'SERT-fxn')
+    plot_fel('FEL.dat', 'Protein-Ligand')
