@@ -1,3 +1,5 @@
+define                   = -DFLEXIBLE
+
 integrator               = steep
 nsteps                   = 1000
 nstxout                  = 0
